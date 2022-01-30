@@ -1,0 +1,19 @@
+
+{
+  "text.autoconfig.mine_gui.title": "MineGui Settings",
+  "text.autoconfig.mine_gui.option.darkMode": "Dark Mode",
+  "text.autoconfig.mine_gui.option.enableExampleContent": "Enable Example Content",
+  "widget.mine_gui.item_slot.narration.title": "Item slot %s out of %s",
+  "widget.mine_gui.labeled_slider.narration.title": "%s slider: at %s between %s and %s",
+  "widget.mine_gui.scroll_bar.narration.title": "Scroll bar",
+  "widget.mine_gui.slider.narration.title": "Slider: at %s between %s and %s",
+  "widget.mine_gui.slider.narration.usage": "Move by dragging or with arrow keys",
+  "widget.mine_gui.tab.narration.title": "%s tab",
+  "widget.mine_gui.tab.narration.position": "Tab %s out of %s",
+  "widget.mine_gui.text_field.narration.title": "Text field: %s",
+  "widget.mine_gui.text_field.narration.suggestion": "Suggestion: %s",
+  "widget.mine_gui.toggle_button.narration.unnamed": "Toggle button: %s",
+  "widget.mine_gui.toggle_button.narration.named": "Toggle button: %s (%s)",
+  "widget.mine_gui.toggle_button.narration.on": "On",
+  "widget.mine_gui.toggle_button.narration.off": "Off"
+}

@@ -1,0 +1,129 @@
+plugins {
+    id "architectury-plugin" version "3.4-SNAPSHOT"
+    id "org.cadixdev.licenser" version "0.6.1"
+    id "com.matthewprenger.cursegradle" version "1.4.0" apply false
+    id "dev.architectury.loom" version "0.10.0-SNAPSHOT" apply false
+}
+
+architectury {
+    minecraft = rootProject.minecraft_version
+}
+
+subprojects {
+    apply plugin: "dev.architectury.loom"
+
+    loom {
+        silentMojangMappingsLicense()
+    }
+
+    repositories {
+        maven { url "https://maven.parchmentmc.org" }
+    }
+
+    dependencies {
+        minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
+        // The following line declares the mojmap mappings, you may use other mappings as well
+        mappings loom.layered() {
+            officialMojangMappings()
+            parchment("org.parchmentmc.data:parchment-1.18.1:${rootProject.parchment_version}@zip")
+        }
+        // The following line declares the yarn mappings you may select this one as well.
+        // mappings "net.fabricmc:yarn:@YARN_MAPPINGS@:v2"
+    }
+}
+
+allprojects {
+    apply plugin: "java"
+    apply plugin: "architectury-plugin"
+    apply plugin: "org.cadixdev.licenser"
+    apply plugin: "maven-publish"
+
+    archivesBaseName = rootProject.archives_base_name
+    version = rootProject.mod_version
+    group = rootProject.maven_group
+
+    repositories {
+        // Add repositories to retrieve artifacts from in here.
+        // You should only use this when depending on other mods because
+        // Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
+        // See https://docs.gradle.org/current/userguide/declaring_repositories.html
+        // for more information about repositories.
+        maven {
+            url = "http://maven.withertech.com/repository/withertech/"
+            allowInsecureProtocol = true
+        }
+
+
+        maven { url "https://cursemaven.com" }
+        maven { url "https://maven.terraformersmc.com/releases/" }
+    }
+
+    tasks.withType(JavaCompile) {
+        options.encoding = "UTF-8"
+        options.release = 17
+    }
+
+    license {
+        header = rootProject.file("HEADER")
+
+        ext {
+            project = "Mine GUI"
+            year = "2022"
+            organization = "WitherTech"
+        }
+
+        include "**/*.java"
+
+        ignoreFailures = true
+    }
+
+    ext {
+        releaseChangelog = {
+            def dateFormat = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm")
+            dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"))
+            def branch
+            if (System.env.BRANCH_NAME) {
+                branch = System.env.BRANCH_NAME
+                branch = branch.substring(branch.lastIndexOf("/") + 1)
+            } else {
+                branch = "git rev-parse --abbrev-ref HEAD".execute().in.text.trim()
+            }
+            if (branch == "HEAD") {
+                branch = "git rev-parse --short HEAD".execute().in.text.trim()
+            }
+            def time = dateFormat.format(new Date())
+            def changes = new StringBuilder()
+            changes << "<h2>Mine GUI v$project.version for $project.minecraft_version</h2>Updated at <b>$time</b>.<br><a href=\"https://www.github.com/withertech/Mine-GUI/commits/$branch\">Click here for changelog</a>"
+            def flag = false
+
+            def proc = "git log --max-count=200 --pretty=format:%s".execute()
+            proc.in.readLines().takeWhile(line -> {
+                if (line.contains("[release]") && !flag) {
+                    flag = true
+                    return true
+                } else if (line.contains("[release]")) {
+                    return false
+                }
+                return true
+            }).forEach(
+                    { line ->
+                        def processedLine = line.toString()
+                        if (!processedLine.contains("New translations") && !processedLine.contains("Merge") && !processedLine.contains("branch")) {
+                            changes << "<br>- ${processedLine.capitalize()}"
+                        }
+                    })
+            proc.waitFor()
+            return changes.toString()
+        }
+    }
+
+    java {
+        withSourcesJar()
+    }
+}
+task licenseFormatAll
+subprojects { p -> licenseFormatAll.dependsOn("${p.path}:licenseFormat") }
+
+task curseforgePublish {
+    dependsOn licenseFormatAll
+}

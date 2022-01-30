@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "id": "mine_gui",
+  "version": "${version}",
+  "name": "Mine Gui",
+  "description": "Cross Platform GUI API",
+  "authors": [
+    "Witherking25"
+  ],
+  "contact": {
+    "website": "https://www.curseforge.com/minecraft/mc-mods/mine-gui",
+    "issues": "https://github.com/withertech/Mine-GUI/issues",
+    "repo": "https://github.com/withertech/Mine-GUI"
+  },
+  "license": "GPL-3.0",
+  "icon": "icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.withertech.mine_gui.fabric.MineGuiFabric"
+    ],
+    "client": [
+      "com.withertech.mine_gui.client.fabric.MineGuiClientFabric"
+    ]
+  },
+  "mixins": [
+    "mine_gui.mixins.json",
+    "mine_gui-common.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.12.12",
+    "fabric": ">=0.46.1+1.18",
+    "minecraft": ">=1.18.1",
+    "architectury": ">=3.4.9",
+    "cloth-config": ">=6.0.43"
+  }
+}

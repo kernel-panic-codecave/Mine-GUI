@@ -1,0 +1,137 @@
+plugins {
+    id "com.github.johnrengelman.shadow" version "7.1.2"
+    id "com.matthewprenger.cursegradle"
+}
+
+architectury {
+    platformSetupLoomIde()
+    fabric()
+}
+
+configurations {
+    common
+    shadowCommon // Don't use shadow from the shadow plugin because we don't want IDEA to index this.
+    compileClasspath.extendsFrom common
+    runtimeClasspath.extendsFrom common
+    developmentFabric.extendsFrom common
+}
+
+dependencies {
+    modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
+    modApi "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}"
+    // Remove the next line if you don't want to depend on the API
+    modApi "dev.architectury:architectury-fabric:${rootProject.architectury_version}"
+    modApi("me.shedaniel.cloth:cloth-config-fabric:${rootProject.cloth_version}") {
+        exclude(module: "fabric-api")
+    }
+
+    modRuntimeOnly("com.terraformersmc:modmenu:${rootProject.mod_menu_version}") { transitive false }
+
+    modImplementation("com.withertech:mine_flux-fabric:${rootProject.flux_version}") {
+        exclude(module: "fabric-api")
+    }
+
+    common(project(path: ":common", configuration: "namedElements")) { transitive false }
+    shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
+}
+
+processResources {
+    inputs.property "version", project.version
+
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
+    }
+}
+
+shadowJar {
+    configurations = [project.configurations.shadowCommon]
+    classifier "dev-shadow"
+}
+
+remapJar {
+    input.set shadowJar.archiveFile
+    dependsOn shadowJar
+    classifier null
+}
+
+jar {
+    classifier "dev"
+}
+
+sourcesJar {
+    def commonSources = project(":common").sourcesJar
+    dependsOn commonSources
+    from commonSources.archiveFile.map { zipTree(it) }
+}
+
+components.java {
+    withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
+        skip()
+    }
+}
+tasks.withType(GenerateModuleMetadata) {
+    enabled = false
+}
+publishing {
+    publications {
+        mavenForge(MavenPublication) {
+            artifactId = rootProject.archives_base_name + "-" + project.name
+            from components.java
+
+            pom.withXml {
+                asNode().dependencies.dependency.each { dep ->
+                    if(dep.artifactId.last().value().last() in ["modmenu"]) {
+                        assert dep.parent().remove(dep)
+                    }
+                }
+            }
+        }
+    }
+
+    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
+    repositories {
+        if (System.getenv("MAVEN_PASS") != null) {
+            maven {
+                name = "WitherTech"
+                url = "http://maven.withertech.com/repository/withertech/"
+                allowInsecureProtocol = true
+                credentials {
+                    username = "admin"
+                    password = System.getenv("MAVEN_PASS")
+                }
+            }
+        }
+    }
+}
+
+curseforge {
+    if (System.getenv("CURSE_API_KEY") != null) {
+        apiKey = System.getenv("CURSE_API_KEY")
+        project {
+            id = "573604"
+            releaseType = "$rootProject.cf_type"
+            changelogType = "html"
+            changelog = releaseChangelog()
+            addGameVersion "1.18.1"
+            addGameVersion "1.18"
+            addGameVersion "1.18-Snapshot"
+            addGameVersion "Java 17"
+            addGameVersion "Forge"
+            relations {
+                requiredDependency "architectury-forge"
+                requiredDependency "cloth-config"
+            }
+            mainArtifact(remapJar.archivePath) {
+                displayName = "[Fabric $rootProject.minecraft_version] v$project.version"
+            }
+            afterEvaluate {
+                uploadTask.dependsOn("build")
+            }
+        }
+        options {
+            forgeGradleIntegration = false
+            javaVersionAutoDetect = false
+        }
+    }
+}
+rootProject.tasks.getByName("curseforgePublish").dependsOn tasks.getByName("curseforge")
