@@ -23,6 +23,8 @@ dependencies {
 
     modImplementation "com.withertech:mine_flux-forge:${rootProject.flux_version}"
 
+    modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-forge:${rootProject.rei_version}"
+
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
 }
@@ -74,7 +76,7 @@ publishing {
 
             pom.withXml {
                 asNode().dependencies.dependency.each { dep ->
-                    if(dep.artifactId.last().value().last() in [""]) {
+                    if(dep.artifactId.last().value().last() in ["RoughlyEnoughItems-forge"]) {
                         assert dep.parent().remove(dep)
                     }
                 }

@@ -31,6 +31,9 @@ dependencies {
         exclude(module: "fabric-api")
     }
 
+    modRuntimeOnly("me.shedaniel:RoughlyEnoughItems-fabric:${rootProject.rei_version}") { transitive false }
+
+
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
 }
@@ -80,7 +83,7 @@ publishing {
 
             pom.withXml {
                 asNode().dependencies.dependency.each { dep ->
-                    if(dep.artifactId.last().value().last() in ["modmenu"]) {
+                    if(dep.artifactId.last().value().last() in ["modmenu", "RoughlyEnoughItems-fabric"]) {
                         assert dep.parent().remove(dep)
                     }
                 }
