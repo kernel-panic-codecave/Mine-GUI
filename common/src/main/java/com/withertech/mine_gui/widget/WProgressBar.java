@@ -10,6 +10,6 @@ public class WProgressBar extends WBar
 	private static final ResourceLocation PROGRESS = new ResourceLocation(MineGui.MOD_ID, "textures/widget/progress_bar.png");
 	public WProgressBar(int field, int maxField)
 	{
-		super(new Texture(PROGRESS).withUv(0, 0, 1, 0.5f), new Texture(PROGRESS).withUv(0, 0.5f, 1, 1), field, maxField, Direction.LEFT);
+		super(new Texture(PROGRESS).withUv(0, 0, 1, 0.5f), new Texture(PROGRESS).withUv(0, 0.5f, 1, 1), field, maxField, Direction.RIGHT);
 	}
 }
