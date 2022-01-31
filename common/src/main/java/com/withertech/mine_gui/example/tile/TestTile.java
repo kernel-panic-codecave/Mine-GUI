@@ -52,13 +52,12 @@ public abstract class TestTile extends BlockEntity implements MenuProvider, Worl
 	public static final int ENERGY_SIZE = 1000;
 	public static final int ENERGY_TRANSFER = 200;
 	public static final int INV_SIZE = 9;
-	protected final TestInventory inventory;
+	protected final TestInventory inventory = new TestInventory();
 	protected final IMFStorage energy = EnergyUtil.create(ENERGY_SIZE, ENERGY_TRANSFER);
 
 	public TestTile(BlockPos blockPos, BlockState blockState)
 	{
 		super(MineTiles.TEST_TILE.get(), blockPos, blockState);
-		inventory = new TestInventory();
 	}
 
 	@Override

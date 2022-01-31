@@ -5,7 +5,7 @@ dependencies {
 
     modImplementation "me.shedaniel.cloth:cloth-config:${rootProject.cloth_version}"
 
-    modApi "com.withertech:mine_flux:${rootProject.flux_version}"
+    modImplementation "com.withertech:mine_flux:${rootProject.flux_version}"
     // Remove the next line if you don't want to depend on the API
     modApi "dev.architectury:architectury:${rootProject.architectury_version}"
 }
