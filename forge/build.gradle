@@ -89,8 +89,7 @@ publishing {
         if (System.getenv("MAVEN_PASS") != null) {
             maven {
                 name = "WitherTech"
-                url = "http://maven.withertech.com/repository/withertech/"
-                allowInsecureProtocol = true
+                url = "https://maven.withertech.com/repository/withertech/"
                 credentials {
                     username = "admin"
                     password = System.getenv("MAVEN_PASS")
