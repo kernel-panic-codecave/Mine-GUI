@@ -37,6 +37,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Objects;
+
 public class WButton extends WWidget
 {
 	private static final ResourceLocation DARK_WIDGETS_LOCATION = new ResourceLocation(MineGui.MOD_ID, "textures/widget/dark_widgets.png");
@@ -289,5 +291,40 @@ public class WButton extends WWidget
 				builder.add(NarratedElementType.USAGE, NarrationMessages.Vanilla.BUTTON_USAGE_HOVERED);
 			}
 		}
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) return true;
+		if (!(o instanceof WButton wButton)) return false;
+		if (!super.equals(o)) return false;
+		return color == wButton.color && darkmodeColor == wButton.darkmodeColor && isEnabled() == wButton.isEnabled() && getAlignment() == wButton.getAlignment() && Objects.equals(getLabel(), wButton.getLabel()) && Objects.equals(getOnClick(), wButton.getOnClick()) && Objects.equals(getIcon(), wButton.getIcon());
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(super.hashCode(), color, darkmodeColor, getAlignment(), getLabel(), isEnabled(), getOnClick(), getIcon());
+	}
+
+	@Override
+	public String toString()
+	{
+		return "WButton{" +
+				"color=" + color +
+				", darkmodeColor=" + darkmodeColor +
+				", alignment=" + alignment +
+				", label=" + label +
+				", enabled=" + enabled +
+				", onClick=" + onClick +
+				", icon=" + icon +
+				", parent=" + parent +
+				", x=" + x +
+				", y=" + y +
+				", width=" + width +
+				", height=" + height +
+				", host=" + host +
+				'}';
 	}
 }

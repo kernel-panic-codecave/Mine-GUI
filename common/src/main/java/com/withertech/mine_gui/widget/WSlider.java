@@ -28,6 +28,8 @@ import net.fabricmc.api.Environment;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Objects;
+
 /**
  * A simple slider widget that can be used to select int values.
  *
@@ -132,5 +134,42 @@ public class WSlider extends WAbstractSlider
 	public void setBackgroundPainter(@Nullable BackgroundPainter backgroundPainter)
 	{
 		this.backgroundPainter = backgroundPainter;
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) return true;
+		if (!(o instanceof WSlider wSlider)) return false;
+		if (!super.equals(o)) return false;
+		return Objects.equals(getBackgroundPainter(), wSlider.getBackgroundPainter());
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(super.hashCode(), getBackgroundPainter());
+	}
+
+	@Override
+	public String toString()
+	{
+		return "WSlider{" +
+				"axis=" + axis +
+				", min=" + min +
+				", max=" + max +
+				", direction=" + direction +
+				", value=" + value +
+				", dragging=" + dragging +
+				", valueToCoordRatio=" + valueToCoordRatio +
+				", coordToValueRatio=" + coordToValueRatio +
+				", backgroundPainter=" + backgroundPainter +
+				", parent=" + parent +
+				", x=" + x +
+				", y=" + y +
+				", width=" + width +
+				", height=" + height +
+				", host=" + host +
+				'}';
 	}
 }

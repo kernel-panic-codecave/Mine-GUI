@@ -41,4 +41,18 @@ public class WClippedPanel extends WPanel
 		}
 		Scissors.pop();
 	}
+
+	@Override
+	public String toString()
+	{
+		return "WClippedPanel{" +
+				"children=" + children +
+				", parent=" + parent +
+				", x=" + x +
+				", y=" + y +
+				", width=" + width +
+				", height=" + height +
+				", host=" + host +
+				'}';
+	}
 }

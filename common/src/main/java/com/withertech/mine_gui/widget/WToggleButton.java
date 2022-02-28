@@ -36,6 +36,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Objects;
 import java.util.function.Consumer;
 
 public class WToggleButton extends WWidget
@@ -278,5 +279,41 @@ public class WToggleButton extends WWidget
 		{
 			builder.add(NarratedElementType.USAGE, NarrationMessages.Vanilla.BUTTON_USAGE_HOVERED);
 		}
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) return true;
+		if (!(o instanceof WToggleButton that)) return false;
+		if (!super.equals(o)) return false;
+		return isOn == that.isOn && color == that.color && darkmodeColor == that.darkmodeColor && Objects.equals(getOnImage(), that.getOnImage()) && Objects.equals(getOffImage(), that.getOffImage()) && Objects.equals(getFocusImage(), that.getFocusImage()) && Objects.equals(getLabel(), that.getLabel()) && Objects.equals(getOnToggle(), that.getOnToggle());
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(super.hashCode(), getOnImage(), getOffImage(), getFocusImage(), getLabel(), isOn, getOnToggle(), color, darkmodeColor);
+	}
+
+	@Override
+	public String toString()
+	{
+		return "WToggleButton{" +
+				"onImage=" + onImage +
+				", offImage=" + offImage +
+				", focusImage=" + focusImage +
+				", label=" + label +
+				", isOn=" + isOn +
+				", onToggle=" + onToggle +
+				", color=" + color +
+				", darkmodeColor=" + darkmodeColor +
+				", parent=" + parent +
+				", x=" + x +
+				", y=" + y +
+				", width=" + width +
+				", height=" + height +
+				", host=" + host +
+				'}';
 	}
 }

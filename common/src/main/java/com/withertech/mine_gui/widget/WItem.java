@@ -146,4 +146,36 @@ public class WItem extends WWidget
 
 		return this;
 	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) return true;
+		if (!(o instanceof WItem wItem)) return false;
+		if (!super.equals(o)) return false;
+		return getDuration() == wItem.getDuration() && ticks == wItem.ticks && current == wItem.current && Objects.equals(getItems(), wItem.getItems());
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(super.hashCode(), getItems(), getDuration(), ticks, current);
+	}
+
+	@Override
+	public String toString()
+	{
+		return "WItem{" +
+				"items=" + items +
+				", duration=" + duration +
+				", ticks=" + ticks +
+				", current=" + current +
+				", parent=" + parent +
+				", x=" + x +
+				", y=" + y +
+				", width=" + width +
+				", height=" + height +
+				", host=" + host +
+				'}';
+	}
 }

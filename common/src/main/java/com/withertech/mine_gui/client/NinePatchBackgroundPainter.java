@@ -26,6 +26,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.resources.ResourceLocation;
 
+import java.util.Objects;
 import java.util.function.Consumer;
 
 /**
@@ -135,5 +136,31 @@ public final class NinePatchBackgroundPainter implements BackgroundPainter
 		matrices.translate(left - leftPadding, top - topPadding, 0);
 		ninePatch.draw(NinePatchTextureRendererImpl.INSTANCE, matrices, panel.getWidth() + leftPadding + rightPadding, panel.getHeight() + topPadding + bottomPadding);
 		matrices.popPose();
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) return true;
+		if (!(o instanceof NinePatchBackgroundPainter that)) return false;
+		return getTopPadding() == that.getTopPadding() && getLeftPadding() == that.getLeftPadding() && getBottomPadding() == that.getBottomPadding() && getRightPadding() == that.getRightPadding() && Objects.equals(ninePatch, that.ninePatch);
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(ninePatch, getTopPadding(), getLeftPadding(), getBottomPadding(), getRightPadding());
+	}
+
+	@Override
+	public String toString()
+	{
+		return "NinePatchBackgroundPainter{" +
+				"ninePatch=" + ninePatch +
+				", topPadding=" + topPadding +
+				", leftPadding=" + leftPadding +
+				", bottomPadding=" + bottomPadding +
+				", rightPadding=" + rightPadding +
+				'}';
 	}
 }

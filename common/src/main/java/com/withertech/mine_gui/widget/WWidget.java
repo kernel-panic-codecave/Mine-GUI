@@ -32,6 +32,8 @@ import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 
+import java.util.Objects;
+
 /**
  * The base class for all widgets.
  *
@@ -65,7 +67,7 @@ public class WWidget
 	protected int height = 18;
 	/**
 	 * The containing {@link GuiDescription} of this widget.
-	 * Can be null if this widget is a {@linkplain io.github.cottonmc.cotton.gui.client.CottonHud HUD} widget.
+	 * Can be null if this widget is a {@linkplain com.withertech.mine_gui.client.MineGuiHud HUD} widget.
 	 */
 	@Nullable
 	protected GuiDescription host;
@@ -645,5 +647,33 @@ public class WWidget
 	@Environment(EnvType.CLIENT)
 	public void addNarrations(NarrationElementOutput builder)
 	{
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) return true;
+		if (!(o instanceof WWidget wWidget)) return false;
+		return getX() == wWidget.getX() && getY() == wWidget.getY() && getWidth() == wWidget.getWidth() && getHeight() == wWidget.getHeight() && Objects.equals(isHovered(), wWidget.isHovered()) && Objects.equals(getParent(), wWidget.getParent()) && Objects.equals(getHost(), wWidget.getHost());
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(isHovered(), getParent(), getX(), getY(), getWidth(), getHeight(), getHost());
+	}
+
+	@Override
+	public String toString()
+	{
+		return "WWidget{" +
+				"hovered=" + hovered +
+				", parent=" + parent +
+				", x=" + x +
+				", y=" + y +
+				", width=" + width +
+				", height=" + height +
+				", host=" + host +
+				'}';
 	}
 }

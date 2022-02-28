@@ -185,6 +185,32 @@ public final class ObservableProperty<T> implements ObservableView<T>
 		listeners.remove(listener);
 	}
 
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) return true;
+		if (!(o instanceof ObservableProperty<?> that)) return false;
+		return allowNull == that.allowNull && hasValue == that.hasValue && Objects.equals(listeners, that.listeners) && Objects.equals(getName(), that.getName()) && Objects.equals(value, that.value);
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(listeners, allowNull, getName(), hasValue, value);
+	}
+
+	@Override
+	public String toString()
+	{
+		return "ObservableProperty{" +
+				"listeners=" + listeners +
+				", allowNull=" + allowNull +
+				", name='" + name + '\'' +
+				", hasValue=" + hasValue +
+				", value=" + value +
+				'}';
+	}
+
 	/**
 	 * A builder for properties.
 	 *
@@ -231,6 +257,31 @@ public final class ObservableProperty<T> implements ObservableView<T>
 		public ObservableProperty<T> build()
 		{
 			return new ObservableProperty<>(initialValue, hasValue, allowNull, name);
+		}
+
+		@Override
+		public boolean equals(Object o)
+		{
+			if (this == o) return true;
+			if (!(o instanceof Builder<?> builder)) return false;
+			return hasValue == builder.hasValue && allowNull == builder.allowNull && Objects.equals(initialValue, builder.initialValue) && Objects.equals(name, builder.name);
+		}
+
+		@Override
+		public int hashCode()
+		{
+			return Objects.hash(initialValue, hasValue, name, allowNull);
+		}
+
+		@Override
+		public String toString()
+		{
+			return "Builder{" +
+					"initialValue=" + initialValue +
+					", hasValue=" + hasValue +
+					", name='" + name + '\'' +
+					", allowNull=" + allowNull +
+					'}';
 		}
 	}
 }

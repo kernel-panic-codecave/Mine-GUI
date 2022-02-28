@@ -556,6 +556,48 @@ public class WItemSlot extends WWidget
 		return null;
 	}
 
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) return true;
+		if (!(o instanceof WItemSlot wItemSlot)) return false;
+		if (!super.equals(o)) return false;
+		return startIndex == wItemSlot.startIndex && slotsWide == wItemSlot.slotsWide && slotsHigh == wItemSlot.slotsHigh && big == wItemSlot.big && isInsertingAllowed() == wItemSlot.isInsertingAllowed() && isTakingAllowed() == wItemSlot.isTakingAllowed() && getFocusedSlot() == wItemSlot.getFocusedSlot() && hoveredSlot == wItemSlot.hoveredSlot && Objects.equals(peers, wItemSlot.peers) && Objects.equals(listeners, wItemSlot.listeners) && Objects.equals(getBackgroundPainter(), wItemSlot.getBackgroundPainter()) && Objects.equals(getIcon(), wItemSlot.getIcon()) && Objects.equals(inventory, wItemSlot.inventory) && Objects.equals(getFilter(), wItemSlot.getFilter());
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(super.hashCode(), peers, listeners, getBackgroundPainter(), getIcon(), inventory, startIndex, slotsWide, slotsHigh, big, isInsertingAllowed(), isTakingAllowed(), getFocusedSlot(), hoveredSlot, getFilter());
+	}
+
+	@Override
+	public String toString()
+	{
+		return "WItemSlot{" +
+				"peers=" + peers +
+				", listeners=" + listeners +
+				", backgroundPainter=" + backgroundPainter +
+				", icon=" + icon +
+				", inventory=" + inventory +
+				", startIndex=" + startIndex +
+				", slotsWide=" + slotsWide +
+				", slotsHigh=" + slotsHigh +
+				", big=" + big +
+				", insertingAllowed=" + insertingAllowed +
+				", takingAllowed=" + takingAllowed +
+				", focusedSlot=" + focusedSlot +
+				", hoveredSlot=" + hoveredSlot +
+				", filter=" + filter +
+				", parent=" + parent +
+				", x=" + x +
+				", y=" + y +
+				", width=" + width +
+				", height=" + height +
+				", host=" + host +
+				'}';
+	}
+
 	/**
 	 * A listener for changes in an item slot.
 	 *

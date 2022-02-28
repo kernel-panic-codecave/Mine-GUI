@@ -113,4 +113,26 @@ public class WEnergyBar extends WBar
 		}
 
 	}
+
+	@Override
+	public String toString()
+	{
+		return "WEnergyBar{" +
+				"bg=" + bg +
+				", bar=" + bar +
+				", field=" + field +
+				", max=" + max +
+				", direction=" + direction +
+				", maxValue=" + maxValue +
+				", properties=" + properties +
+				", tooltipLabel='" + tooltipLabel + '\'' +
+				", tooltipTextComponent=" + tooltipTextComponent +
+				", parent=" + parent +
+				", x=" + x +
+				", y=" + y +
+				", width=" + width +
+				", height=" + height +
+				", host=" + host +
+				'}';
+	}
 }

@@ -41,6 +41,7 @@ import net.minecraft.util.Mth;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 
+import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
@@ -573,5 +574,48 @@ public class WTextField extends WWidget
 		{
 			builder.add(NarratedElementType.HINT, new TranslatableComponent(NarrationMessages.TEXT_FIELD_SUGGESTION_KEY, suggestion));
 		}
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) return true;
+		if (!(o instanceof WTextField that)) return false;
+		if (!super.equals(o)) return false;
+		return getMaxLength() == that.getMaxLength() && isEditable() == that.isEditable() && tickCount == that.tickCount && disabledColor == that.disabledColor && enabledColor == that.enabledColor && suggestionColor == that.suggestionColor && scrollOffset == that.scrollOffset && getCursor() == that.getCursor() && select == that.select && Objects.equals(font, that.font) && Objects.equals(getText(), that.getText()) && Objects.equals(getSuggestion(), that.getSuggestion()) && Objects.equals(onChanged, that.onChanged) && Objects.equals(textPredicate, that.textPredicate) && Objects.equals(backgroundPainter, that.backgroundPainter);
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(super.hashCode(), font, getText(), getMaxLength(), isEditable(), tickCount, disabledColor, enabledColor, suggestionColor, getSuggestion(), scrollOffset, getCursor(), select, onChanged, textPredicate, backgroundPainter);
+	}
+
+	@Override
+	public String toString()
+	{
+		return "WTextField{" +
+				"font=" + font +
+				", text='" + text + '\'' +
+				", maxLength=" + maxLength +
+				", editable=" + editable +
+				", tickCount=" + tickCount +
+				", disabledColor=" + disabledColor +
+				", enabledColor=" + enabledColor +
+				", suggestionColor=" + suggestionColor +
+				", suggestion=" + suggestion +
+				", scrollOffset=" + scrollOffset +
+				", cursor=" + cursor +
+				", select=" + select +
+				", onChanged=" + onChanged +
+				", textPredicate=" + textPredicate +
+				", backgroundPainter=" + backgroundPainter +
+				", parent=" + parent +
+				", x=" + x +
+				", y=" + y +
+				", width=" + width +
+				", height=" + height +
+				", host=" + host +
+				'}';
 	}
 }

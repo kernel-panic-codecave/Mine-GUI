@@ -80,4 +80,26 @@ public class ItemIcon implements Icon
 		modelViewMatrices.popPose();
 		RenderSystem.applyModelViewMatrix();
 	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) return true;
+		if (!(o instanceof ItemIcon itemIcon)) return false;
+		return Objects.equals(stack, itemIcon.stack);
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(stack);
+	}
+
+	@Override
+	public String toString()
+	{
+		return "ItemIcon{" +
+				"stack=" + stack +
+				'}';
+	}
 }

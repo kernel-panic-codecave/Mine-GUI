@@ -37,6 +37,8 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextComponent;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Objects;
+
 /**
  * A single-line label widget.
  */
@@ -310,5 +312,38 @@ public class WLabel extends WWidget
 	public void addNarrations(NarrationElementOutput builder)
 	{
 		builder.add(NarratedElementType.TITLE, text);
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) return true;
+		if (!(o instanceof WLabel wLabel)) return false;
+		if (!super.equals(o)) return false;
+		return getColor() == wLabel.getColor() && getDarkmodeColor() == wLabel.getDarkmodeColor() && Objects.equals(getText(), wLabel.getText()) && getHorizontalAlignment() == wLabel.getHorizontalAlignment() && getVerticalAlignment() == wLabel.getVerticalAlignment();
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(super.hashCode(), getText(), getHorizontalAlignment(), getVerticalAlignment(), getColor(), getDarkmodeColor());
+	}
+
+	@Override
+	public String toString()
+	{
+		return "WLabel{" +
+				"text=" + text +
+				", horizontalAlignment=" + horizontalAlignment +
+				", verticalAlignment=" + verticalAlignment +
+				", color=" + color +
+				", darkmodeColor=" + darkmodeColor +
+				", parent=" + parent +
+				", x=" + x +
+				", y=" + y +
+				", width=" + width +
+				", height=" + height +
+				", host=" + host +
+				'}';
 	}
 }

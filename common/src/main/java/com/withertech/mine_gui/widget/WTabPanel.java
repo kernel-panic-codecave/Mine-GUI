@@ -124,6 +124,38 @@ public class WTabPanel extends WPanel
 		mainPanel.setBackgroundPainter(BackgroundPainter.VANILLA);
 	}
 
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) return true;
+		if (!(o instanceof WTabPanel wTabPanel)) return false;
+		if (!super.equals(o)) return false;
+		return Objects.equals(tabRibbon, wTabPanel.tabRibbon) && Objects.equals(tabWidgets, wTabPanel.tabWidgets) && Objects.equals(mainPanel, wTabPanel.mainPanel);
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(super.hashCode(), tabRibbon, tabWidgets, mainPanel);
+	}
+
+	@Override
+	public String toString()
+	{
+		return "WTabPanel{" +
+				"children=" + children +
+				", tabRibbon=" + tabRibbon +
+				", tabWidgets=" + tabWidgets +
+				", mainPanel=" + mainPanel +
+				", parent=" + parent +
+				", x=" + x +
+				", y=" + y +
+				", width=" + width +
+				", height=" + height +
+				", host=" + host +
+				'}';
+	}
+
 	/**
 	 * The data of a tab.
 	 */
@@ -194,6 +226,31 @@ public class WTabPanel extends WPanel
 			{
 				this.tooltip.accept(tooltip);
 			}
+		}
+
+		@Override
+		public boolean equals(Object o)
+		{
+			if (this == o) return true;
+			if (!(o instanceof Tab tab)) return false;
+			return Objects.equals(getTitle(), tab.getTitle()) && Objects.equals(getIcon(), tab.getIcon()) && Objects.equals(getWidget(), tab.getWidget()) && Objects.equals(tooltip, tab.tooltip);
+		}
+
+		@Override
+		public int hashCode()
+		{
+			return Objects.hash(getTitle(), getIcon(), getWidget(), tooltip);
+		}
+
+		@Override
+		public String toString()
+		{
+			return "Tab{" +
+					"title=" + title +
+					", icon=" + icon +
+					", widget=" + widget +
+					", tooltip=" + tooltip +
+					'}';
 		}
 
 		/**
@@ -298,6 +355,31 @@ public class WTabPanel extends WPanel
 				}
 
 				return new Tab(title, icon, widget, tooltip);
+			}
+
+			@Override
+			public boolean equals(Object o)
+			{
+				if (this == o) return true;
+				if (!(o instanceof Builder builder)) return false;
+				return Objects.equals(widget, builder.widget) && Objects.equals(tooltip, builder.tooltip) && Objects.equals(title, builder.title) && Objects.equals(icon, builder.icon);
+			}
+
+			@Override
+			public int hashCode()
+			{
+				return Objects.hash(widget, tooltip, title, icon);
+			}
+
+			@Override
+			public String toString()
+			{
+				return "Builder{" +
+						"widget=" + widget +
+						", tooltip=" + tooltip +
+						", title=" + title +
+						", icon=" + icon +
+						'}';
 			}
 		}
 	}
@@ -438,6 +520,36 @@ public class WTabPanel extends WPanel
 			}
 
 			builder.add(NarratedElementType.POSITION, new TranslatableComponent(NarrationMessages.TAB_POSITION_KEY, tabWidgets.indexOf(this) + 1, tabWidgets.size()));
+		}
+
+		@Override
+		public boolean equals(Object o)
+		{
+			if (this == o) return true;
+			if (!(o instanceof WTab wTab)) return false;
+			if (!super.equals(o)) return false;
+			return selected == wTab.selected && Objects.equals(data, wTab.data);
+		}
+
+		@Override
+		public int hashCode()
+		{
+			return Objects.hash(super.hashCode(), data, selected);
+		}
+
+		@Override
+		public String toString()
+		{
+			return "WTab{" +
+					"data=" + data +
+					", selected=" + selected +
+					", parent=" + parent +
+					", x=" + x +
+					", y=" + y +
+					", width=" + width +
+					", height=" + height +
+					", host=" + host +
+					'}';
 		}
 	}
 }

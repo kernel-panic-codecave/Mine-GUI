@@ -29,6 +29,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -315,9 +316,33 @@ public abstract class WPanel extends WWidget
 	}
 
 	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) return true;
+		if (!(o instanceof WPanel wPanel)) return false;
+		if (!super.equals(o)) return false;
+		return Objects.equals(children, wPanel.children) && Objects.equals(getBackgroundPainter(), wPanel.getBackgroundPainter());
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(super.hashCode(), children, getBackgroundPainter());
+	}
+
+	@Override
 	public String toString()
 	{
-		return getClass().getSimpleName() + " {\n" + children.stream().map(Object::toString).map(x -> x + ",").flatMap(x -> Stream.of(x.split("\n")).filter(y -> !y.isEmpty()).map(y -> "\t" + y)).collect(Collectors.joining("\n")) + "\n}";
+		return "WPanel{" +
+				"children=" + children +
+				", backgroundPainter=" + backgroundPainter +
+				", parent=" + parent +
+				", x=" + x +
+				", y=" + y +
+				", width=" + width +
+				", height=" + height +
+				", host=" + host +
+				'}';
 	}
 
 	private static final class WidgetList extends AbstractList<WWidget>
@@ -388,6 +413,31 @@ public abstract class WPanel extends WWidget
 		public int size()
 		{
 			return backing.size();
+		}
+
+		@Override
+		public boolean equals(Object o)
+		{
+			if (this == o) return true;
+			if (!(o instanceof WidgetList wWidgets)) return false;
+			if (!super.equals(o)) return false;
+			return Objects.equals(owner, wWidgets.owner) && Objects.equals(backing, wWidgets.backing);
+		}
+
+		@Override
+		public int hashCode()
+		{
+			return Objects.hash(super.hashCode(), owner, backing);
+		}
+
+		@Override
+		public String toString()
+		{
+			return "WidgetList{" +
+					"owner=" + owner +
+					", backing=" + backing +
+					", modCount=" + modCount +
+					'}';
 		}
 	}
 }

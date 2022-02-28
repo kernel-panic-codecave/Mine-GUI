@@ -25,6 +25,7 @@ import com.withertech.mine_gui.widget.data.HorizontalAlignment;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
+import java.util.Objects;
 import java.util.function.Supplier;
 
 /**
@@ -104,5 +105,37 @@ public class WDynamicLabel extends WWidget
 	{
 		this.alignment = align;
 		return this;
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) return true;
+		if (!(o instanceof WDynamicLabel that)) return false;
+		if (!super.equals(o)) return false;
+		return color == that.color && darkmodeColor == that.darkmodeColor && Objects.equals(text, that.text) && alignment == that.alignment;
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(super.hashCode(), text, alignment, color, darkmodeColor);
+	}
+
+	@Override
+	public String toString()
+	{
+		return "WDynamicLabel{" +
+				"text=" + text +
+				", alignment=" + alignment +
+				", color=" + color +
+				", darkmodeColor=" + darkmodeColor +
+				", parent=" + parent +
+				", x=" + x +
+				", y=" + y +
+				", width=" + width +
+				", height=" + height +
+				", host=" + host +
+				'}';
 	}
 }

@@ -40,6 +40,8 @@ import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
 
+import java.util.Objects;
+
 /**
  * A screen for a {@link SyncedGuiDescription}.
  *
@@ -397,5 +399,49 @@ public class MineGuiInventoryScreen<T extends SyncedGuiDescription> extends Abst
 	protected void updateNarratedWidget(NarrationElementOutput builder)
 	{
 		if (description != null) NarrationHelper.addNarrations(description.getRootPanel(), builder);
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) return true;
+		if (!(o instanceof MineGuiInventoryScreen<?> that)) return false;
+		return Objects.equals(mouseInputHandler, that.mouseInputHandler) && Objects.equals(getDescription(), that.getDescription()) && Objects.equals(getLastResponder(), that.getLastResponder());
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(mouseInputHandler, getDescription(), getLastResponder());
+	}
+
+	@Override
+	public String toString()
+	{
+		return "MineGuiInventoryScreen{" +
+				"mouseInputHandler=" + mouseInputHandler +
+				", description=" + description +
+				", lastResponder=" + lastResponder +
+				", imageWidth=" + imageWidth +
+				", imageHeight=" + imageHeight +
+				", titleLabelX=" + titleLabelX +
+				", titleLabelY=" + titleLabelY +
+				", inventoryLabelX=" + inventoryLabelX +
+				", inventoryLabelY=" + inventoryLabelY +
+				", menu=" + menu +
+				", playerInventoryTitle=" + playerInventoryTitle +
+				", hoveredSlot=" + hoveredSlot +
+				", leftPos=" + leftPos +
+				", topPos=" + topPos +
+				", quickCraftSlots=" + quickCraftSlots +
+				", isQuickCrafting=" + isQuickCrafting +
+				", title=" + title +
+				", minecraft=" + minecraft +
+				", itemRenderer=" + itemRenderer +
+				", width=" + width +
+				", height=" + height +
+				", passEvents=" + passEvents +
+				", font=" + font +
+				'}';
 	}
 }

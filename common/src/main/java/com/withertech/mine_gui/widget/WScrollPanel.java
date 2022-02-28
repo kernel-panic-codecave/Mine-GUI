@@ -26,6 +26,8 @@ import com.withertech.mine_gui.widget.data.InputResult;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
+import java.util.Objects;
+
 /**
  * Similar to the JScrollPane in Swing, this widget represents a scrollable widget.
  *
@@ -186,5 +188,41 @@ public class WScrollPanel extends WClippedPanel
 		this.horizontalScrollBar.validate(c);
 		this.verticalScrollBar.validate(c);
 		super.validate(c);
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) return true;
+		if (!(o instanceof WScrollPanel that)) return false;
+		if (!super.equals(o)) return false;
+		return lastHorizontalScroll == that.lastHorizontalScroll && lastVerticalScroll == that.lastVerticalScroll && Objects.equals(widget, that.widget) && Objects.equals(horizontalScrollBar, that.horizontalScrollBar) && Objects.equals(verticalScrollBar, that.verticalScrollBar) && scrollingHorizontally == that.scrollingHorizontally && scrollingVertically == that.scrollingVertically;
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(super.hashCode(), widget, horizontalScrollBar, verticalScrollBar, scrollingHorizontally, scrollingVertically, lastHorizontalScroll, lastVerticalScroll);
+	}
+
+	@Override
+	public String toString()
+	{
+		return "WScrollPanel{" +
+				"children=" + children +
+				", widget=" + widget +
+				", horizontalScrollBar=" + horizontalScrollBar +
+				", verticalScrollBar=" + verticalScrollBar +
+				", scrollingHorizontally=" + scrollingHorizontally +
+				", scrollingVertically=" + scrollingVertically +
+				", lastHorizontalScroll=" + lastHorizontalScroll +
+				", lastVerticalScroll=" + lastVerticalScroll +
+				", parent=" + parent +
+				", x=" + x +
+				", y=" + y +
+				", width=" + width +
+				", height=" + height +
+				", host=" + host +
+				'}';
 	}
 }

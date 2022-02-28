@@ -30,6 +30,7 @@ import net.minecraft.util.Mth;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 
+import java.util.Objects;
 import java.util.function.IntConsumer;
 
 /**
@@ -469,6 +470,47 @@ public abstract class WAbstractSlider extends WWidget
 	{
 		builder.add(NarratedElementType.TITLE, new TranslatableComponent(NarrationMessages.SLIDER_MESSAGE_KEY, value, min, max));
 		builder.add(NarratedElementType.USAGE, NarrationMessages.SLIDER_USAGE);
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) return true;
+		if (!(o instanceof WAbstractSlider that)) return false;
+		if (!super.equals(o)) return false;
+		return min == that.min && max == that.max && getValue() == that.getValue() && isDragging() == that.isDragging() && Float.compare(that.valueToCoordRatio, valueToCoordRatio) == 0 && Float.compare(that.coordToValueRatio, coordToValueRatio) == 0 && pendingDraggingFinishedFromKeyboard == that.pendingDraggingFinishedFromKeyboard && draggingFinishedFromScrollingTimer == that.draggingFinishedFromScrollingTimer && pendingDraggingFinishedFromScrolling == that.pendingDraggingFinishedFromScrolling && getAxis() == that.getAxis() && getDirection() == that.getDirection() && Objects.equals(getValueChangeListener(), that.getValueChangeListener()) && Objects.equals(getDraggingFinishedListener(), that.getDraggingFinishedListener());
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(super.hashCode(), getAxis(), min, max, getDirection(), getValue(), isDragging(), valueToCoordRatio, coordToValueRatio, pendingDraggingFinishedFromKeyboard, draggingFinishedFromScrollingTimer, pendingDraggingFinishedFromScrolling, getValueChangeListener(), getDraggingFinishedListener());
+	}
+
+	@Override
+	public String toString()
+	{
+		return "WAbstractSlider{" +
+				"axis=" + axis +
+				", min=" + min +
+				", max=" + max +
+				", direction=" + direction +
+				", value=" + value +
+				", dragging=" + dragging +
+				", valueToCoordRatio=" + valueToCoordRatio +
+				", coordToValueRatio=" + coordToValueRatio +
+				", pendingDraggingFinishedFromKeyboard=" + pendingDraggingFinishedFromKeyboard +
+				", draggingFinishedFromScrollingTimer=" + draggingFinishedFromScrollingTimer +
+				", pendingDraggingFinishedFromScrolling=" + pendingDraggingFinishedFromScrolling +
+				", valueChangeListener=" + valueChangeListener +
+				", draggingFinishedListener=" + draggingFinishedListener +
+				", parent=" + parent +
+				", x=" + x +
+				", y=" + y +
+				", width=" + width +
+				", height=" + height +
+				", host=" + host +
+				'}';
 	}
 
 	/**

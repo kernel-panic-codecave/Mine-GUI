@@ -71,4 +71,34 @@ public abstract class WPanelWithInsets extends WPanel
 
 		return this;
 	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) return true;
+		if (!(o instanceof WPanelWithInsets that)) return false;
+		if (!super.equals(o)) return false;
+		return Objects.equals(getInsets(), that.getInsets());
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(super.hashCode(), getInsets());
+	}
+
+	@Override
+	public String toString()
+	{
+		return "WPanelWithInsets{" +
+				"children=" + children +
+				", insets=" + insets +
+				", parent=" + parent +
+				", x=" + x +
+				", y=" + y +
+				", width=" + width +
+				", height=" + height +
+				", host=" + host +
+				'}';
+	}
 }

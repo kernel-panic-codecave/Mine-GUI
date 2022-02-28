@@ -210,4 +210,35 @@ public class ValidatedSlot extends Slot
 	{
 		this.visible = visible;
 	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) return true;
+		if (!(o instanceof ValidatedSlot that)) return false;
+		return slotNumber == that.slotNumber && isInsertingAllowed() == that.isInsertingAllowed() && isTakingAllowed() == that.isTakingAllowed() && isVisible() == that.isVisible() && Objects.equals(listeners, that.listeners) && Objects.equals(getFilter(), that.getFilter());
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(listeners, slotNumber, isInsertingAllowed(), isTakingAllowed(), getFilter(), isVisible());
+	}
+
+	@Override
+	public String toString()
+	{
+		return "ValidatedSlot{" +
+				"listeners=" + listeners +
+				", slotNumber=" + slotNumber +
+				", insertingAllowed=" + insertingAllowed +
+				", takingAllowed=" + takingAllowed +
+				", filter=" + filter +
+				", visible=" + visible +
+				", container=" + container +
+				", index=" + index +
+				", x=" + x +
+				", y=" + y +
+				'}';
+	}
 }

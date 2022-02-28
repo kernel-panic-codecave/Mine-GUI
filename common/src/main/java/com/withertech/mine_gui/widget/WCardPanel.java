@@ -25,6 +25,7 @@ import net.fabricmc.api.Environment;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 /**
  * Similar to the CardLayout in AWT, this panel displays one widget at a time from a list of widgets.
@@ -229,5 +230,36 @@ public class WCardPanel extends WPanel
 		{
 			card.addPainters();
 		}
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) return true;
+		if (!(o instanceof WCardPanel that)) return false;
+		if (!super.equals(o)) return false;
+		return getSelectedIndex() == that.getSelectedIndex() && Objects.equals(cards, that.cards);
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(super.hashCode(), cards, getSelectedIndex());
+	}
+
+	@Override
+	public String toString()
+	{
+		return "WCardPanel{" +
+				"cards=" + cards +
+				", selectedIndex=" + selectedIndex +
+				", children=" + children +
+				", parent=" + parent +
+				", x=" + x +
+				", y=" + y +
+				", width=" + width +
+				", height=" + height +
+				", host=" + host +
+				'}';
 	}
 }

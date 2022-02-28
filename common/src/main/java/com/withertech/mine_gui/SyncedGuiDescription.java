@@ -45,6 +45,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
@@ -682,5 +683,40 @@ public class SyncedGuiDescription extends AbstractContainerMenu implements GuiDe
 	private BiConsumer<ResourceLocation, FriendlyByteBuf> getClientPacketSender()
 	{
 		return NetworkManager::sendToServer;
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) return true;
+		if (!(o instanceof SyncedGuiDescription that)) return false;
+		return getTitleColor() == that.getTitleColor() && darkTitleColor == that.darkTitleColor && isFullscreen() == that.isFullscreen() && isTitleVisible() == that.isTitleVisible() && Objects.equals(blockInventory, that.blockInventory) && Objects.equals(playerInventory, that.playerInventory) && Objects.equals(world, that.world) && Objects.equals(getPropertyDelegate(), that.getPropertyDelegate()) && Objects.equals(getRootPanel(), that.getRootPanel()) && getTitleAlignment() == that.getTitleAlignment() && Objects.equals(getFocus(), that.getFocus()) && Objects.equals(getTitlePos(), that.getTitlePos());
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(blockInventory, playerInventory, world, getPropertyDelegate(), getRootPanel(), getTitleColor(), darkTitleColor, isFullscreen(), isTitleVisible(), getTitleAlignment(), getFocus(), getTitlePos());
+	}
+
+	@Override
+	public String toString()
+	{
+		return "SyncedGuiDescription{" +
+				"blockInventory=" + blockInventory +
+				", playerInventory=" + playerInventory +
+				", world=" + world +
+				", propertyDelegate=" + propertyDelegate +
+				", rootPanel=" + rootPanel +
+				", titleColor=" + titleColor +
+				", darkTitleColor=" + darkTitleColor +
+				", fullscreen=" + fullscreen +
+				", titleVisible=" + titleVisible +
+				", titleAlignment=" + titleAlignment +
+				", focus=" + focus +
+				", titlePos=" + titlePos +
+				", slots=" + slots +
+				", containerId=" + containerId +
+				'}';
 	}
 }

@@ -24,6 +24,7 @@ import net.minecraft.client.Minecraft;
 import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayDeque;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -178,9 +179,28 @@ public final class Scissors
 		}
 
 		@Override
+		public boolean equals(Object o)
+		{
+			if (this == o) return true;
+			if (!(o instanceof Frame frame)) return false;
+			return x == frame.x && y == frame.y && width == frame.width && height == frame.height;
+		}
+
+		@Override
+		public int hashCode()
+		{
+			return Objects.hash(x, y, width, height);
+		}
+
+		@Override
 		public String toString()
 		{
-			return "Frame{ at = (" + x + ", " + y + "), size = (" + width + ", " + height + ") }";
+			return "Frame{" +
+					"x=" + x +
+					", y=" + y +
+					", width=" + width +
+					", height=" + height +
+					'}';
 		}
 	}
 }

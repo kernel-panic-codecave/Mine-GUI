@@ -29,6 +29,8 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.narration.NarratedElementType;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 
+import java.util.Objects;
+
 public class WScrollBar extends WWidget
 {
 	private static final int SCROLLING_SPEED = 4;
@@ -340,5 +342,40 @@ public class WScrollBar extends WWidget
 	{
 		builder.add(NarratedElementType.TITLE, NarrationMessages.SCROLL_BAR_TITLE);
 		builder.add(NarratedElementType.USAGE, NarrationMessages.SLIDER_USAGE);
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) return true;
+		if (!(o instanceof WScrollBar that)) return false;
+		if (!super.equals(o)) return false;
+		return getValue() == that.getValue() && getMaxValue() == that.getMaxValue() && getWindow() == that.getWindow() && anchor == that.anchor && anchorValue == that.anchorValue && sliding == that.sliding && axis == that.axis;
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(super.hashCode(), axis, getValue(), getMaxValue(), getWindow(), anchor, anchorValue, sliding);
+	}
+
+	@Override
+	public String toString()
+	{
+		return "WScrollBar{" +
+				"axis=" + axis +
+				", value=" + value +
+				", maxValue=" + maxValue +
+				", window=" + window +
+				", anchor=" + anchor +
+				", anchorValue=" + anchorValue +
+				", sliding=" + sliding +
+				", parent=" + parent +
+				", x=" + x +
+				", y=" + y +
+				", width=" + width +
+				", height=" + height +
+				", host=" + host +
+				'}';
 	}
 }

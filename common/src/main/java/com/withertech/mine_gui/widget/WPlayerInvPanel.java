@@ -27,6 +27,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Objects;
+
 /**
  * A player inventory widget that has a visually separate hotbar.
  */
@@ -134,5 +136,38 @@ public class WPlayerInvPanel extends WPlainPanel
 		{
 			((WLabel) label).setColor(c.getTitleColor());
 		}
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) return true;
+		if (!(o instanceof WPlayerInvPanel that)) return false;
+		if (!super.equals(o)) return false;
+		return Objects.equals(inv, that.inv) && Objects.equals(hotbar, that.hotbar) && Objects.equals(label, that.label);
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(super.hashCode(), inv, hotbar, label);
+	}
+
+	@Override
+	public String toString()
+	{
+		return "WPlayerInvPanel{" +
+				"children=" + children +
+				", insets=" + insets +
+				", inv=" + inv +
+				", hotbar=" + hotbar +
+				", label=" + label +
+				", parent=" + parent +
+				", x=" + x +
+				", y=" + y +
+				", width=" + width +
+				", height=" + height +
+				", host=" + host +
+				'}';
 	}
 }

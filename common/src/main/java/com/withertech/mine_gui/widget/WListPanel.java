@@ -27,6 +27,7 @@ import net.fabricmc.api.Environment;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
@@ -249,5 +250,44 @@ public class WListPanel<D, W extends WWidget> extends WClippedPanel
 	public WScrollBar getScrollBar()
 	{
 		return scrollBar;
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) return true;
+		if (!(o instanceof WListPanel<?, ?> that)) return false;
+		if (!super.equals(o)) return false;
+		return cellHeight == that.cellHeight && fixedHeight == that.fixedHeight && margin == that.margin && lastScroll == that.lastScroll && Objects.equals(data, that.data) && Objects.equals(supplier, that.supplier) && Objects.equals(configurator, that.configurator) && Objects.equals(configured, that.configured) && Objects.equals(unconfigured, that.unconfigured) && Objects.equals(getScrollBar(), that.getScrollBar());
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(super.hashCode(), data, supplier, configurator, configured, unconfigured, cellHeight, fixedHeight, margin, getScrollBar(), lastScroll);
+	}
+
+	@Override
+	public String toString()
+	{
+		return "WListPanel{" +
+				"data=" + data +
+				", supplier=" + supplier +
+				", configurator=" + configurator +
+				", configured=" + configured +
+				", unconfigured=" + unconfigured +
+				", cellHeight=" + cellHeight +
+				", fixedHeight=" + fixedHeight +
+				", margin=" + margin +
+				", scrollBar=" + scrollBar +
+				", lastScroll=" + lastScroll +
+				", children=" + children +
+				", parent=" + parent +
+				", x=" + x +
+				", y=" + y +
+				", width=" + width +
+				", height=" + height +
+				", host=" + host +
+				'}';
 	}
 }

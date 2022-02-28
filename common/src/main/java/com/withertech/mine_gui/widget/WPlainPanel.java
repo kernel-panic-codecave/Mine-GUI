@@ -77,4 +77,19 @@ public class WPlainPanel extends WPanelWithInsets
 		super.setInsets(insets);
 		return this;
 	}
+
+	@Override
+	public String toString()
+	{
+		return "WPlainPanel{" +
+				"children=" + children +
+				", insets=" + insets +
+				", parent=" + parent +
+				", x=" + x +
+				", y=" + y +
+				", width=" + width +
+				", height=" + height +
+				", host=" + host +
+				'}';
+	}
 }

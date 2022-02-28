@@ -32,6 +32,8 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.inventory.ContainerData;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Objects;
+
 /**
  * A bar that displays int values from a {@link ContainerData}.
  *
@@ -321,6 +323,44 @@ public class WBar extends WWidget
 		this.properties = properties;
 		manuallySetProperties = properties != null;
 		return this;
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) return true;
+		if (!(o instanceof WBar wBar)) return false;
+		if (!super.equals(o)) return false;
+		return field == wBar.field && max == wBar.max && maxValue == wBar.maxValue && manuallySetProperties == wBar.manuallySetProperties && Objects.equals(bg, wBar.bg) && Objects.equals(bar, wBar.bar) && direction == wBar.direction && Objects.equals(getProperties(), wBar.getProperties()) && Objects.equals(tooltipLabel, wBar.tooltipLabel) && Objects.equals(tooltipTextComponent, wBar.tooltipTextComponent);
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(super.hashCode(), bg, bar, field, max, direction, maxValue, getProperties(), tooltipLabel, tooltipTextComponent, manuallySetProperties);
+	}
+
+	@Override
+	public String toString()
+	{
+		return "WBar{" +
+				"bg=" + bg +
+				", bar=" + bar +
+				", field=" + field +
+				", max=" + max +
+				", direction=" + direction +
+				", maxValue=" + maxValue +
+				", properties=" + properties +
+				", tooltipLabel='" + tooltipLabel + '\'' +
+				", tooltipTextComponent=" + tooltipTextComponent +
+				", manuallySetProperties=" + manuallySetProperties +
+				", parent=" + parent +
+				", x=" + x +
+				", y=" + y +
+				", width=" + width +
+				", height=" + height +
+				", host=" + host +
+				'}';
 	}
 
 	/**

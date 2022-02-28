@@ -25,6 +25,9 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.resources.ResourceLocation;
 
+import java.util.Arrays;
+import java.util.Objects;
+
 /**
  * A sprite whose texture will be tiled.
  *
@@ -178,5 +181,42 @@ public class WTiledSprite extends WSprite
 						tint);
 			}
 		}
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) return true;
+		if (!(o instanceof WTiledSprite that)) return false;
+		if (!super.equals(o)) return false;
+		return getTileWidth() == that.getTileWidth() && getTileHeight() == that.getTileHeight();
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(super.hashCode(), getTileWidth(), getTileHeight());
+	}
+
+	@Override
+	public String toString()
+	{
+		return "WTiledSprite{" +
+				"currentFrame=" + currentFrame +
+				", currentFrameTime=" + currentFrameTime +
+				", frames=" + Arrays.toString(frames) +
+				", frameTime=" + frameTime +
+				", lastFrame=" + lastFrame +
+				", singleImage=" + singleImage +
+				", tint=" + tint +
+				", tileWidth=" + tileWidth +
+				", tileHeight=" + tileHeight +
+				", parent=" + parent +
+				", x=" + x +
+				", y=" + y +
+				", width=" + width +
+				", height=" + height +
+				", host=" + host +
+				'}';
 	}
 }

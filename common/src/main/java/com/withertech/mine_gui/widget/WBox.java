@@ -273,4 +273,38 @@ public class WBox extends WPanelWithInsets
 		super.setInsets(insets);
 		return this;
 	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) return true;
+		if (!(o instanceof WBox wBox)) return false;
+		if (!super.equals(o)) return false;
+		return getSpacing() == wBox.getSpacing() && getAxis() == wBox.getAxis() && getHorizontalAlignment() == wBox.getHorizontalAlignment() && getVerticalAlignment() == wBox.getVerticalAlignment();
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(super.hashCode(), getSpacing(), getAxis(), getHorizontalAlignment(), getVerticalAlignment());
+	}
+
+	@Override
+	public String toString()
+	{
+		return "WBox{" +
+				"spacing=" + spacing +
+				", axis=" + axis +
+				", horizontalAlignment=" + horizontalAlignment +
+				", verticalAlignment=" + verticalAlignment +
+				", children=" + children +
+				", insets=" + insets +
+				", parent=" + parent +
+				", x=" + x +
+				", y=" + y +
+				", width=" + width +
+				", height=" + height +
+				", host=" + host +
+				'}';
+	}
 }

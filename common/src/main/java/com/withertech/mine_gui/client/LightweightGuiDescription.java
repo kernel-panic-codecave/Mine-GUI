@@ -31,6 +31,8 @@ import com.withertech.mine_gui.widget.data.Vec2i;
 import net.minecraft.world.inventory.ContainerData;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Objects;
+
 /**
  * A GuiDescription without any associated Minecraft classes
  */
@@ -190,5 +192,35 @@ public class LightweightGuiDescription implements GuiDescription
 	public void setTitlePos(Vec2i titlePos)
 	{
 		this.titlePos = titlePos;
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) return true;
+		if (!(o instanceof LightweightGuiDescription that)) return false;
+		return getTitleColor() == that.getTitleColor() && darkmodeTitleColor == that.darkmodeTitleColor && isFullscreen() == that.isFullscreen() && isTitleVisible() == that.isTitleVisible() && Objects.equals(getRootPanel(), that.getRootPanel()) && Objects.equals(getPropertyDelegate(), that.getPropertyDelegate()) && Objects.equals(getFocus(), that.getFocus()) && getTitleAlignment() == that.getTitleAlignment() && Objects.equals(getTitlePos(), that.getTitlePos());
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(getRootPanel(), getPropertyDelegate(), getFocus(), getTitleColor(), darkmodeTitleColor, isFullscreen(), isTitleVisible(), getTitleAlignment(), getTitlePos());
+	}
+
+	@Override
+	public String toString()
+	{
+		return "LightweightGuiDescription{" +
+				"rootPanel=" + rootPanel +
+				", propertyDelegate=" + propertyDelegate +
+				", focus=" + focus +
+				", titleColor=" + titleColor +
+				", darkmodeTitleColor=" + darkmodeTitleColor +
+				", fullscreen=" + fullscreen +
+				", titleVisible=" + titleVisible +
+				", titleAlignment=" + titleAlignment +
+				", titlePos=" + titlePos +
+				'}';
 	}
 }

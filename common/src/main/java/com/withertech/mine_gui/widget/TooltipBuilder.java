@@ -26,6 +26,7 @@ import net.minecraft.util.FormattedCharSequence;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * A builder for widget tooltips.
@@ -69,5 +70,27 @@ public final class TooltipBuilder
 		Collections.addAll(this.lines, lines);
 
 		return this;
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) return true;
+		if (!(o instanceof TooltipBuilder that)) return false;
+		return Objects.equals(lines, that.lines);
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(lines);
+	}
+
+	@Override
+	public String toString()
+	{
+		return "TooltipBuilder{" +
+				"lines=" + lines +
+				'}';
 	}
 }

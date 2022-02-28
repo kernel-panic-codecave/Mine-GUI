@@ -25,6 +25,9 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.resources.ResourceLocation;
 
+import java.util.Arrays;
+import java.util.Objects;
+
 public class WSprite extends WWidget
 {
 	protected int currentFrame = 0;
@@ -268,5 +271,42 @@ public class WSprite extends WWidget
 	protected void paintFrame(PoseStack matrices, int x, int y, Texture texture)
 	{
 		ScreenDrawing.texturedRect(matrices, x, y, getWidth(), getHeight(), texture, tint);
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) return true;
+		if (!(o instanceof WSprite wSprite)) return false;
+		if (!super.equals(o)) return false;
+		return currentFrame == wSprite.currentFrame && currentFrameTime == wSprite.currentFrameTime && frameTime == wSprite.frameTime && lastFrame == wSprite.lastFrame && singleImage == wSprite.singleImage && tint == wSprite.tint && Arrays.equals(frames, wSprite.frames);
+	}
+
+	@Override
+	public int hashCode()
+	{
+		int result = Objects.hash(super.hashCode(), currentFrame, currentFrameTime, frameTime, lastFrame, singleImage, tint);
+		result = 31 * result + Arrays.hashCode(frames);
+		return result;
+	}
+
+	@Override
+	public String toString()
+	{
+		return "WSprite{" +
+				"currentFrame=" + currentFrame +
+				", currentFrameTime=" + currentFrameTime +
+				", frames=" + Arrays.toString(frames) +
+				", frameTime=" + frameTime +
+				", lastFrame=" + lastFrame +
+				", singleImage=" + singleImage +
+				", tint=" + tint +
+				", parent=" + parent +
+				", x=" + x +
+				", y=" + y +
+				", width=" + width +
+				", height=" + height +
+				", host=" + host +
+				'}';
 	}
 }

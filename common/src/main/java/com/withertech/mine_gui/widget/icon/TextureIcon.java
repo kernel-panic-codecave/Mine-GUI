@@ -25,6 +25,8 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.resources.ResourceLocation;
 
+import java.util.Objects;
+
 /**
  * An icon that draws a texture.
  *
@@ -106,5 +108,29 @@ public class TextureIcon implements Icon
 	public void paint(PoseStack matrices, int x, int y, int size)
 	{
 		ScreenDrawing.texturedRect(matrices, x, y, size, size, texture, color, opacity);
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) return true;
+		if (!(o instanceof TextureIcon that)) return false;
+		return Float.compare(that.getOpacity(), getOpacity()) == 0 && getColor() == that.getColor() && Objects.equals(texture, that.texture);
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(texture, getOpacity(), getColor());
+	}
+
+	@Override
+	public String toString()
+	{
+		return "TextureIcon{" +
+				"texture=" + texture +
+				", opacity=" + opacity +
+				", color=" + color +
+				'}';
 	}
 }

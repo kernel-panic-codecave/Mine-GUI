@@ -305,4 +305,39 @@ public class WText extends WWidget
 	{
 		builder.add(NarratedElementType.TITLE, text);
 	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) return true;
+		if (!(o instanceof WText wText)) return false;
+		if (!super.equals(o)) return false;
+		return getColor() == wText.getColor() && getDarkmodeColor() == wText.getDarkmodeColor() && wrappingScheduled == wText.wrappingScheduled && Objects.equals(getText(), wText.getText()) && getHorizontalAlignment() == wText.getHorizontalAlignment() && getVerticalAlignment() == wText.getVerticalAlignment() && Objects.equals(wrappedLines, wText.wrappedLines);
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(super.hashCode(), getText(), getColor(), getDarkmodeColor(), getHorizontalAlignment(), getVerticalAlignment(), wrappedLines, wrappingScheduled);
+	}
+
+	@Override
+	public String toString()
+	{
+		return "WText{" +
+				"text=" + text +
+				", color=" + color +
+				", darkmodeColor=" + darkmodeColor +
+				", horizontalAlignment=" + horizontalAlignment +
+				", verticalAlignment=" + verticalAlignment +
+				", wrappedLines=" + wrappedLines +
+				", wrappingScheduled=" + wrappingScheduled +
+				", parent=" + parent +
+				", x=" + x +
+				", y=" + y +
+				", width=" + width +
+				", height=" + height +
+				", host=" + host +
+				'}';
+	}
 }

@@ -20,6 +20,8 @@ package com.withertech.mine_gui.widget;
 
 import com.withertech.mine_gui.widget.data.Insets;
 
+import java.util.Objects;
+
 /**
  * A panel that positions children in a grid.
  */
@@ -93,5 +95,36 @@ public class WGridPanel extends WPanelWithInsets
 	{
 		super.setInsets(insets);
 		return this;
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) return true;
+		if (!(o instanceof WGridPanel that)) return false;
+		if (!super.equals(o)) return false;
+		return grid == that.grid;
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(super.hashCode(), grid);
+	}
+
+	@Override
+	public String toString()
+	{
+		return "WGridPanel{" +
+				"grid=" + grid +
+				", children=" + children +
+				", insets=" + insets +
+				", parent=" + parent +
+				", x=" + x +
+				", y=" + y +
+				", width=" + width +
+				", height=" + height +
+				", host=" + host +
+				'}';
 	}
 }

@@ -34,6 +34,8 @@ import net.minecraft.network.chat.TextComponent;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.opengl.GL11;
 
+import java.util.Objects;
+
 public class MineGuiClientScreen extends Screen implements MineGuiScreenImpl
 {
 	private final MouseInputHandler<MineGuiClientScreen> mouseInputHandler = new MouseInputHandler<>(this);
@@ -326,5 +328,40 @@ public class MineGuiClientScreen extends Screen implements MineGuiScreenImpl
 	protected void updateNarratedWidget(NarrationElementOutput builder)
 	{
 		if (description != null) NarrationHelper.addNarrations(description.getRootPanel(), builder);
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) return true;
+		if (!(o instanceof MineGuiClientScreen that)) return false;
+		return left == that.left && top == that.top && titleX == that.titleX && titleY == that.titleY && Objects.equals(mouseInputHandler, that.mouseInputHandler) && Objects.equals(getDescription(), that.getDescription()) && Objects.equals(getLastResponder(), that.getLastResponder());
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(mouseInputHandler, getDescription(), left, top, titleX, titleY, getLastResponder());
+	}
+
+	@Override
+	public String toString()
+	{
+		return "MineGuiClientScreen{" +
+				"mouseInputHandler=" + mouseInputHandler +
+				", description=" + description +
+				", left=" + left +
+				", top=" + top +
+				", titleX=" + titleX +
+				", titleY=" + titleY +
+				", lastResponder=" + lastResponder +
+				", title=" + title +
+				", minecraft=" + minecraft +
+				", itemRenderer=" + itemRenderer +
+				", width=" + width +
+				", height=" + height +
+				", passEvents=" + passEvents +
+				", font=" + font +
+				'}';
 	}
 }

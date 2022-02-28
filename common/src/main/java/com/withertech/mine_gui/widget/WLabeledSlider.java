@@ -33,6 +33,8 @@ import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Objects;
+
 /**
  * A vanilla-style labeled slider widget.
  *
@@ -270,6 +272,45 @@ public class WLabeledSlider extends WAbstractSlider
 		{
 			super.addNarrations(builder);
 		}
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) return true;
+		if (!(o instanceof WLabeledSlider that)) return false;
+		if (!super.equals(o)) return false;
+		return Objects.equals(getLabel(), that.getLabel()) && Objects.equals(getLabelUpdater(), that.getLabelUpdater()) && getLabelAlignment() == that.getLabelAlignment();
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(super.hashCode(), getLabel(), getLabelUpdater(), getLabelAlignment());
+	}
+
+	@Override
+	public String toString()
+	{
+		return "WLabeledSlider{" +
+				"axis=" + axis +
+				", min=" + min +
+				", max=" + max +
+				", direction=" + direction +
+				", value=" + value +
+				", dragging=" + dragging +
+				", valueToCoordRatio=" + valueToCoordRatio +
+				", coordToValueRatio=" + coordToValueRatio +
+				", label=" + label +
+				", labelUpdater=" + labelUpdater +
+				", labelAlignment=" + labelAlignment +
+				", parent=" + parent +
+				", x=" + x +
+				", y=" + y +
+				", width=" + width +
+				", height=" + height +
+				", host=" + host +
+				'}';
 	}
 
 	/**
